@@ -58,10 +58,10 @@ def Print_Player(players):
     name=[]
     for player in players:
         name.append(player['name'])
-    return (','.join(name))
+    return (', '.join(name))
 
 def Print_Name(data):
-    return (','.join(data))
+    return (', '.join(data))
 
 def Print_Stats(Team):
     print(f"Team: {Team['name']} Stats")
@@ -89,8 +89,12 @@ def start(Teams):
             Print_Stats(Teams[int(choice)-1])
             print("Press Enter to continue...")
             input()
-        else:
+        elif choice=='2':
             break   
+        else:
+            print("Please enter a valid option")
+            print("Press Enter to continue...")
+            input()
 
 if __name__ == "__main__":
     PlayersData,TeamsData=fetch_data()
