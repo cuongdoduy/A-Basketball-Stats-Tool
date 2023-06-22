@@ -7,7 +7,6 @@ def fetch_data():
     PlayersData=copy.deepcopy(PLAYERS)
     TeamsData=copy.deepcopy(TEAMS)
     return PlayersData,TeamsData
-
 def clean_data(data):
     for player in data:
         if player['experience'] == 'YES':
@@ -17,7 +16,6 @@ def clean_data(data):
         player['height'] = int(player['height'].split()[0])
         player['guardians'] = player['guardians'].split(' and ')
     return data
-
 def add_player(index,player,Teams,Number_of_team):
     Teams[index]['players'].append(player)
     Teams[index]['Guardians']+=player['guardians']
@@ -31,7 +29,6 @@ def add_player(index,player,Teams,Number_of_team):
     else:
         index+=1
     return Teams,index
-
 def balance_teams(Teams,PlayersData,TeamsData):
     num_players_per_team = len(PlayersData) / len(TeamsData)
     Player_non_experience = []
@@ -53,13 +50,11 @@ def balance_teams(Teams,PlayersData,TeamsData):
         team['Average height']=round(team['Average height']/len(team['players']),2)
         team['players'].sort(key=lambda x: x['height'])            
     return Teams
-
 def Print_Player(players):
     name=[]
     for player in players:
         name.append(player['name'])
     return (', '.join(name))
-
 def Print_Name(data):
     return (', '.join(data))
 
@@ -85,8 +80,15 @@ def start(Teams):
         if choice=='1':
             for index in range(len(Teams)):
                 print(index+1,')',Teams[index]['name'])
-            choice=input("Enter an option: ")
-            Print_Stats(Teams[int(choice)-1])
+            while True:
+                choice=input("Enter an option: ")
+                if choice in ['1','2','3']:
+                    Print_Stats(Teams[int(choice)-1])
+                    break
+                else:
+                    print("Please enter a valid option")
+                    print("Press Enter to continue...")
+                    input()
             print("Press Enter to continue...")
             input()
         elif choice=='2':
@@ -101,3 +103,6 @@ if __name__ == "__main__":
     PlayersData=clean_data(PlayersData)
     Teams=balance_teams(Teams,PlayersData,TeamsData)
     start(Teams)
+
+
+
